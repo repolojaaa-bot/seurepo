@@ -285,10 +285,12 @@ document.addEventListener("DOMContentLoaded", () => {
         init, 
         formatPrice, // Expor formatPrice
         getImageUrl: (path) => { // Expor getImageUrl
-            if (!path) return '/FRONT/assets/images/placeholder-product.jpg'; // Corrigido caminho
+            if (!path) return '/FRONT/assets/images/placeholder-product.jpg'; 
             if (path.startsWith('http')) return path;
-            // Assume que a API está na raiz se não for URL completa
-            const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:8080' : 'https://back-production-e565.up.railway.app';
+            
+            // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
+            const baseUrl = 'http://localhost:8080';
+            
             return `${baseUrl}/${path}`;
         } 
     };
@@ -300,12 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   const QuickViewModule = (() => {
     // =========================================================================
-    // VETOR IX: CORREÇÃO DE URL CRÍTICA
-    // Define a URL base para a API, consistente com o ambiente de DEV (localhost)
+    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
     // =========================================================================
-    const API_BASE = window.location.hostname === 'localhost' 
-        ? 'http://localhost:8080/api' 
-        : 'https://back-production-e565.up.railway.app/api';
+    const API_BASE = 'http://localhost:8080/api';
     // =========================================================================
 
     // Elementos do DOM

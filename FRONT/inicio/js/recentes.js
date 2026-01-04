@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:8080' : 'https://back-production-e565.up.railway.app';
+    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
+    const BASE_URL = 'http://localhost:8080';
+    
     const API_URL = `${BASE_URL}/api/produtos`; 
 
     // Mapeamento das seções e seus elementos Swiper

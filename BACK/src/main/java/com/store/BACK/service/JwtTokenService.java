@@ -17,8 +17,11 @@ import java.util.function.Function;
 @Service
 public class JwtTokenService {
 
-    // --- CHAVE SECRETA (Mantida constante) ---
-    private static final String SECRET_KEY_STRING = "ZEdWemEyVnlJR05sY25ScFptbGpZWFJsTFdWNGRISmhZMk52ZFc1MA==";
+    // --- CHAVE SECRETA (ALTERADA PARA VENDA) ---
+    // IMPORTANTE: Instrua o comprador a gerar uma nova chave Base64 se desejar mais segurança.
+    // Esta chave é genérica e segura para uso inicial (desenvolvimento/testes).
+    private static final String SECRET_KEY_STRING = "VGhpcyBJcyBBIFJhbmRvbSBKZXkgRm9yIFRoZSBTdG9yZSBTYWxlIFBsZWFzZSBDaGFuZ2UgSXQ="; 
+    
     private final SecretKey secretKey;
 
     public JwtTokenService() {

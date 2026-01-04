@@ -20,7 +20,7 @@ public class EmailService {
     @Value("${resend.api.key}")
     private String resendApiKey;
 
-    // Cores da marca
+    // Cores da marca (Pode manter ou o cliente altera depois)
     private final String COLOR_PRIMARY = "#ff7a00";
     private final String COLOR_PRIMARY_LIGHT = "#ff9a3d";
     private final String COLOR_BG = "#f8f9fa";
@@ -33,8 +33,8 @@ public class EmailService {
     private final String COLOR_ERROR = "#f56565";
     private final String COLOR_INFO = "#3498db";
 
-    // ✅ AQUI ESTÁ A MUDANÇA IMPORTANTE: Seu domínio oficial
-    private static final String REMETENTE_PADRAO = "Japa Universe <nao-responda@japauniverse.com.br>";
+    // ✅ ALTERADO: Nome genérico para venda
+    private static final String REMETENTE_PADRAO = "Minha Loja <nao-responda@loja.com>";
 
     public void enviarConfirmacaoPagamento(Pedido pedido) {
         enviarPedidoRecebido(pedido);
@@ -70,7 +70,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(pedido.getUsuario().getEmail())
-                    .subject("⏳ Pedido Recebido - Aguardando Pagamento Japa Universe #" + pedido.getId())
+                    .subject("⏳ Pedido Recebido - Aguardando Pagamento #" + pedido.getId())
                     .html(finalHtml)
                     .build();
 
@@ -111,7 +111,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(pedido.getUsuario().getEmail())
-                    .subject("✅ Pagamento Confirmado - Japa Universe #" + pedido.getId())
+                    .subject("✅ Pagamento Confirmado #" + pedido.getId())
                     .html(finalHtml)
                     .build();
 
@@ -161,7 +161,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(pedido.getUsuario().getEmail())
-                    .subject("🚚 Seu Pedido Foi Enviado - Japa Universe #" + pedido.getId())
+                    .subject("🚚 Seu Pedido Foi Enviado #" + pedido.getId())
                     .html(finalHtml)
                     .build();
 
@@ -199,7 +199,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(pedido.getUsuario().getEmail())
-                    .subject("🎁 Seu Pedido Foi Entregue - Japa Universe #" + pedido.getId())
+                    .subject("🎁 Seu Pedido Foi Entregue #" + pedido.getId())
                     .html(finalHtml)
                     .build();
 
@@ -236,7 +236,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(pedido.getUsuario().getEmail())
-                    .subject("🚫 Pedido Cancelado - Japa Universe #" + pedido.getId())
+                    .subject("🚫 Pedido Cancelado #" + pedido.getId())
                     .html(finalHtml)
                     .build();
 
@@ -252,10 +252,8 @@ public class EmailService {
         try {
             Resend resend = new Resend(resendApiKey);
             
-            // ATENÇÃO: Link apontando para o seu FRONTEND real (ajuste se não for localhost)
-            String url = "https://japauniverse.com.br/login/HTML/nova-senha.html?token=" + token;
-            // Se estiver testando localmente, pode manter: 
-            // String url = "http://127.0.0.1:5500/FRONT/login/HTML/nova-senha.html?token=" + token;
+            // ✅ ALTERADO: Link apontando para localhost (padrão de entrega)
+            String url = "http://localhost:5500/FRONT/login/HTML/nova-senha.html?token=" + token;
 
             String bodyContent =
                     "<div style='text-align: center; margin-bottom: 30px;'>" +
@@ -283,7 +281,7 @@ public class EmailService {
             SendEmailRequest request = SendEmailRequest.builder()
                     .from(REMETENTE_PADRAO)
                     .to(to)
-                    .subject("🔐 Redefinição de Senha - Japa Universe")
+                    .subject("🔐 Redefinição de Senha")
                     .html(finalHtml)
                     .build();
 
@@ -345,8 +343,9 @@ public class EmailService {
     }
 
     private String buildSuporteFooter() {
+        // ✅ ALTERADO: Link genérico de suporte
         return "<div style='text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid " + COLOR_BORDER + ";'>" +
-                "<p style='color: " + COLOR_TEXT_LIGHT + "; font-size: 14px; margin: 5px 0;'>Precisa de ajuda? <a href='mailto:suporte@japauniverse.com.br' style='color: " + COLOR_PRIMARY + "; text-decoration: none;'>Entre em contato conosco</a></p>" +
+                "<p style='color: " + COLOR_TEXT_LIGHT + "; font-size: 14px; margin: 5px 0;'>Precisa de ajuda? <a href='mailto:suporte@loja.com' style='color: " + COLOR_PRIMARY + "; text-decoration: none;'>Entre em contato conosco</a></p>" +
                 "</div>";
     }
 
@@ -370,7 +369,8 @@ public class EmailService {
                 // Header
                 "<tr>" +
                 "<td style='background: linear-gradient(135deg, #121212, #1a1a1a); padding: 30px 20px; text-align: center;'>" +
-                "<h1 style='color: " + COLOR_PRIMARY + "; margin: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; font-size: 32px; font-weight: 400;'>JAPA UNIVERSE</h1>" +
+                // ✅ ALTERADO: Nome genérico da loja
+                "<h1 style='color: " + COLOR_PRIMARY + "; margin: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; font-size: 32px; font-weight: 400;'>MINHA LOJA</h1>" +
                 "<p style='color: rgba(255,255,255,0.7); margin: 8px 0 0 0; font-size: 14px; letter-spacing: 1px;'>STYLE • CULTURE • IDENTITY</p>" +
                 "</td>" +
                 "</tr>" +
@@ -387,15 +387,16 @@ public class EmailService {
                 "<tr>" +
                 "<td align='center'>" +
                 "<div style='margin-bottom: 15px;'>" +
-                "<a href='https://www.instagram.com/japauniverse' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Instagram</a>" +
+                // ✅ ALTERADO: Links genéricos
+                "<a href='#' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Instagram</a>" +
                 "<span style='color: " + COLOR_BORDER + ";'>•</span>" +
-                "<a href='https://www.facebook.com/japauniverse' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Facebook</a>" +
+                "<a href='#' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Facebook</a>" +
                 "<span style='color: " + COLOR_BORDER + ";'>•</span>" +
-                "<a href='mailto:contato@japauniverse.com.br' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Contato</a>" +
+                "<a href='mailto:contato@loja.com' style='display: inline-block; margin: 0 8px; color: " + COLOR_TEXT_LIGHT + "; text-decoration: none; font-size: 13px;'>Contato</a>" +
                 "</div>" +
                 "<p style='margin: 0; font-size: 12px; color: " + COLOR_TEXT_LIGHT + ";'>" +
-                "&copy; 2025 Japa Universe. Todos os direitos reservados.<br>" +
-                "São Carlos - SP • Brasil" +
+                "&copy; 2025 Minha Loja. Todos os direitos reservados.<br>" +
+                "Cidade - UF • Brasil" +
                 "</p>" +
                 "</td>" +
                 "</tr>" +

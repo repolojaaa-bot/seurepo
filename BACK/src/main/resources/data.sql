@@ -9,7 +9,7 @@ DELETE FROM pedidos;
 DELETE FROM produtos;
 DELETE FROM categorias;
 DELETE FROM marcas;
-DELETE FROM _usuario;  -- <--- CORRIGIDO AQUI (era usuarios)
+DELETE FROM _usuario;
 
 -- 2. INSERÇÃO DE MARCAS
 INSERT INTO marcas (id, nome) VALUES 
@@ -23,24 +23,18 @@ INSERT INTO categorias (id, nome) VALUES
 (5, 'Jordan'), (6, 'Outros'), (7, 'Acessórios'), (8, 'Casual'), 
 (9, 'Corrida'), (10, 'Botas'), (11, 'Chuteiras'), (12, 'Sandálias');
 
--- 4. USUÁRIO ADMIN (Vinicius)
--- Tabela corrigida para _usuario
-INSERT INTO _usuario (nome, email, cpf, telefone, senha, role) VALUES -- <--- CORRIGIDO AQUI
-('Vinicius Admin', 
- 'vinicius.biancolini.tds24@gmail.com', 
+-- 4. USUÁRIO ADMIN (PADRÃO)
+-- DADOS PESSOAIS REMOVIDOS E SUBSTITUÍDOS POR DADOS GENÉRICOS
+INSERT INTO _usuario (nome, email, cpf, telefone, senha, role) VALUES 
+('Administrador', 
+ 'admin@admin.com', 
  '000.000.000-00', 
- '11999999999', 
- '$2a$10$C0iH.HkG8Nh73C57GC7oT.jxzLawZbas/miJPJVP2qhTcpbZI0soq', 
+ '00000000000', 
+ -- A SENHA ABAIXO É: 123456
+ '$2a$10$N.zmdr9k7uOCQb376NoUnutj8iAt6aBECYnzhUwpo9tQdnTEQ/1yq',
  'ROLE_ADMIN');
 
- -- ==================================================================================
--- ARQUIVO: BACK/src/main/resources/data.sql
--- ==================================================================================
-
--- ... (Mantenha os DELETEs e os INSERTS de Marcas/Categorias/Usuarios que já fizemos) ...
-
--- 5. INSERÇÃO DE PRODUTOS (COM IMAGENS LOCAIS)
-
+-- 5. INSERÇÃO DE PRODUTOS (EXEMPLO)
 INSERT INTO produtos (
     nome, 
     descricao, 
@@ -54,10 +48,7 @@ INSERT INTO produtos (
     imagem_url_2,
     imagem_url_3, 
     imagem_url_4
-    
 ) VALUES 
-
--- PRODUTO 1: Nike Dunk Panda
 (
     'Nike Dunk Low Panda',
     'O clássico preto e branco que combina com tudo.',
