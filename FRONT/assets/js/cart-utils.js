@@ -1,47 +1,36 @@
-// myStore/FRONT/assets/js/cart-utils.js
+const CartUtils = (() => {
+    // ALTERADO: Chave genérica para consistência
+    const CART_KEY = 'myStoreCart';
 
-// 1. Obtém o carrinho do Local Storage
-const getCart = () => {
-    return JSON.parse(localStorage.getItem('cart')) || []; 
-};
-
-// 2. Salva o carrinho no Local Storage
-const saveCart = (cart) => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    // Notifica o contador do cabeçalho para atualizar, se a função existir
-    if (window.updateCartCounter) {
-        window.updateCartCounter();
-    }
-};
-
-// 3. Adiciona um produto ao carrinho (chamada pela página de produto)
-const addToCart = (productToAdd) => {
-    let cart = getCart();
-    
-    // Procura por um item com o mesmo ID e tamanho (para evitar duplicidade na lista)
-    const existingItemIndex = cart.findIndex(item => item.id === productToAdd.id && item.size === productToAdd.size);
-
-    if (existingItemIndex > -1) {
-        // Se já existe, apenas aumenta a quantidade
-        cart[existingItemIndex].quantity += 1;
-    } else {
-        // Se não existe, garante que a quantidade é 1 e adiciona o novo item
-        if (!productToAdd.quantity || productToAdd.quantity < 1) {
-            productToAdd.quantity = 1;
+    const getCart = () => {
+        try {
+            return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+        } catch {
+            return [];
         }
-        cart.push(productToAdd);
-    }
-    
-    saveCart(cart);
-    alert(`${productToAdd.name} (${productToAdd.size}) adicionado ao carrinho!`);
-};
+    };
 
-// EXPOSIÇÃO GLOBAL: Torna as funções acessíveis pelo objeto 'window'
-window.getCart = getCart;
-window.saveCart = saveCart;
-window.addToCart = addToCart;
+    const getCartCount = () => {
+        const cart = getCart();
+        return cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
+    };
 
-// Inicializa a função de atualização do contador, se existir
-if (window.updateCartCounter) {
-    window.updateCartCounter();
-}
+    // Atualiza a bolinha vermelha do carrinho no header
+    const updateCartBadge = () => {
+        const count = getCartCount();
+        const badge = document.querySelector('.cart-count');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+    };
+
+    return {
+        getCart,
+        getCartCount,
+        updateCartBadge
+    };
+})();
+
+// Inicializa ao carregar
+document.addEventListener('DOMContentLoaded', CartUtils.updateCartBadge);
