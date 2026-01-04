@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /**
-   * Módulo de Animações com GSAP (Corrigido)
+   * Módulo de Animações com GSAP
    */
   const AnimationModule = (() => {
     function init() {
@@ -57,8 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
               ease: "power3.out",
               stagger: 0.2,
           });
-      } else {
-          console.log("Hero animation elements not found on this page, skipping animations.");
       }
     }
     return { init };
@@ -66,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /**
-   * Módulo do Carrinho de Compras (Mantido)
+   * Módulo do Carrinho de Compras
    */
   const CartModule = (() => {
     const cartModal = document.getElementById("cartModal");
@@ -78,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let cart = [];
     try {
-        cart = JSON.parse(localStorage.getItem("japaUniverseCart")) || [];
+        // ALTERADO: Chave genérica para o carrinho
+        cart = JSON.parse(localStorage.getItem("myStoreCart")) || [];
     } catch (e) {
         console.error("Erro ao ler o carrinho do localStorage:", e);
         cart = [];
@@ -87,18 +86,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const saveCart = () => {
         try {
-            localStorage.setItem("japaUniverseCart", JSON.stringify(cart));
+            // ALTERADO: Salva com a chave genérica
+            localStorage.setItem("myStoreCart", JSON.stringify(cart));
         } catch (e) {
             console.error("Erro ao salvar o carrinho no localStorage:", e);
         }
     };
     
     const formatPrice = (price) => {
-        // Verifica se 'price' é um número válido antes de formatar
         const numericPrice = Number(price);
         if (isNaN(numericPrice)) {
-            console.warn("Tentativa de formatar preço inválido:", price);
-            return "R$ --,--"; // Retorna um placeholder ou valor padrão
+            return "R$ --,--"; 
         }
         return `R$ ${numericPrice.toFixed(2).replace('.', ',')}`;
     };
@@ -108,11 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cartModal) {
             const isActive = cartModal.classList.contains("active");
             if (!isActive) {
-                updateCart(); // Atualiza ANTES de mostrar
+                updateCart(); 
             }
             cartModal.classList.toggle("active");
-        } else {
-             console.error("Elemento do modal do carrinho (#cartModal) não encontrado.");
         }
     };
 
@@ -170,8 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const addToCart = (product) => {
-        if (!product || !product.id || !product.size || product.price === undefined || !product.name) { // Verifica price explicitamente
-             console.error("Tentativa de adicionar produto inválido ao carrinho:", product);
+        if (!product || !product.id || !product.size || product.price === undefined || !product.name) {
              alert("Erro: Não foi possível adicionar o produto ao carrinho (dados inválidos).");
              return;
         }
@@ -186,12 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
         saveCart();
         updateCart();
         
-         // Abre o modal do carrinho APENAS se ele não estiver ativo
          if (cartModal && !cartModal.classList.contains('active')) {
              toggleModal();
          } else {
-             // Se o modal do carrinho já estiver aberto, apenas atualiza a info (contador e subtotal)
-             // O renderCartItems() já foi chamado dentro de updateCart()
              updateCartInfo(); 
          }
     };
@@ -214,46 +206,38 @@ document.addEventListener("DOMContentLoaded", () => {
             if (cart[itemIndex].quantity > 1) {
                 cart[itemIndex].quantity--;
             } else {
-                cart.splice(itemIndex, 1); // Remove se diminuir de 1
+                cart.splice(itemIndex, 1);
             }
         } 
         else if (target.classList.contains('remove-item-btn')) {
-            cart.splice(itemIndex, 1); // Remove diretamente
+            cart.splice(itemIndex, 1);
         }
         else if (target.classList.contains('quantity-input')) {
              const newQuantity = parseInt(target.value, 10);
-             // Impede quantidade < 1
              if (!isNaN(newQuantity) && newQuantity >= 1) { 
                  cart[itemIndex].quantity = newQuantity;
              } else {
-                 // Se inválido, volta ao valor anterior ou 1
                  target.value = cart[itemIndex].quantity || 1; 
              }
         }
 
         saveCart();
-        // Renderiza itens e atualiza info após qualquer ação
         renderCartItems(); 
         updateCartInfo(); 
     };
     
     const init = () => {
-        // Listener para abrir o modal do carrinho
         document.addEventListener('click', (e) => {
             if (e.target.closest('#cartButton')) {
-                 console.log("Cart button clicked");
                  toggleModal();
             }
         });
         
-        // Listeners para fechar o modal do carrinho
         if (closeButton) closeButton.addEventListener("click", toggleModal);
         if (overlay) overlay.addEventListener("click", toggleModal);
         
-        // Listeners para ações DENTRO do modal do carrinho
         if (cartItemsContainer) {
             cartItemsContainer.addEventListener('click', handleCartActions);
-            // Atualiza também se o valor do input for alterado diretamente
             cartItemsContainer.addEventListener('input', (e) => { 
                 if (e.target.classList.contains('quantity-input')) {
                     handleCartActions(e);
@@ -261,72 +245,53 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
         
-        // Listener para o botão de checkout DENTRO do modal do carrinho
         if (checkoutBtn) {
             checkoutBtn.addEventListener('click', () => {
                 const basePathAttr = document.querySelector('header.main-header')?.dataset?.basepath;
                 const absoluteBasePath = basePathAttr ? new URL(basePathAttr, window.location.origin).pathname.replace(/\/$/, '') : '';
                 const checkoutUrl = `${absoluteBasePath}/FRONT/checkout/HTML/checkout.html`;
-                console.log("Navigating to checkout:", checkoutUrl);
                 window.location.href = checkoutUrl;
             });
         }
         
-        // Expõe funções globalmente
         window.addToCart = addToCart;
         window.updateCartCounter = updateCartInfo; 
         
-        // Atualiza o contador no header ao carregar a página
         updateCartInfo(); 
     }
 
-    // Exporta funções que podem ser úteis para outros módulos
     return { 
         init, 
-        formatPrice, // Expor formatPrice
-        getImageUrl: (path) => { // Expor getImageUrl
+        formatPrice, 
+        getImageUrl: (path) => {
             if (!path) return '/FRONT/assets/images/placeholder-product.jpg'; 
             if (path.startsWith('http')) return path;
-            
-            // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
             const baseUrl = 'http://localhost:8080';
-            
             return `${baseUrl}/${path}`;
         } 
     };
   })();
 
   /**
-   * *** MÓDULO Quick View CORRIGIDO PARA MATCH CSS ***
-   * (Usando classes corretas: .quickview- ao invés de .quick-view-)
+   * Módulo Quick View
    */
   const QuickViewModule = (() => {
-    // =========================================================================
-    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
-    // =========================================================================
     const API_BASE = 'http://localhost:8080/api';
-    // =========================================================================
 
-    // Elementos do DOM
     const quickViewElements = {
         overlay: document.getElementById('quickViewModal'),
         content: document.getElementById('quickViewContent'),
-        // O botão de fechar externo já é referenciado corretamente
         closeBtn: document.getElementById('closeQuickViewBtn') 
     };
 
-    // Estado local do modal
     let quickViewProduct = null;
     let selectedSize = null;
 
-    // Dependências (funções globais ou do CartModule)
     const formatPrice = CartModule.formatPrice;
     const getImageUrl = CartModule.getImageUrl;
 
-    // Sistema de Notificações
     const showNotification = (message, type = 'success') => {
         const notification = document.createElement('div');
-        // Usa a classe .notification
         notification.className = `notification notification-${type}`; 
         notification.innerHTML = `
             <div class="notification-content">
@@ -342,7 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     };
 
-    // Lógica principal do Quick View
     const quickViewSystem = {
         openQuickView: async (productId) => {
             quickViewProduct = null;
@@ -350,11 +314,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (!quickViewElements.overlay) {
                 console.error("Elemento do modal Quick View (#quickViewModal) não encontrado.");
-                showNotification("Erro ao abrir detalhes do produto.", "error");
                 return;
             }
 
-            // Adiciona a classe que o CSS do catálogo espera no overlay
             quickViewElements.overlay.classList.add('quickview-modal-overlay'); 
             quickViewSystem.showSkeleton();
             quickViewElements.overlay.classList.add('active');
@@ -378,9 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         },
 
-        // Mostra a estrutura do modal com placeholders enquanto carrega
         showSkeleton: () => {
-             // Removido o envolucro e botão duplicado.
              quickViewElements.content.innerHTML = `
                 <div class="quickview-gallery quickview-skeleton-image"></div>
                 <div class="quickview-details">
@@ -402,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => { 
                     const productDetails = {
                         ...product,
-                        description: product.descricao || "Descrição detalhada do produto não disponível no momento. Este tênis combina estilo e conforto, sendo perfeito para uso diário.", 
+                        description: product.descricao || "Descrição detalhada do produto não disponível no momento.", 
                         images: [ product.imagemUrl, product.imagemUrl, product.imagemUrl ], 
                         features: [
                             { icon: 'fas fa-shoe-prints', text: 'Amortecimento Avançado' },
@@ -419,13 +379,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         },
 
-        // Renderiza o HTML final do modal com os dados do produto
         renderProductDetails: (product) => {
             const hasDiscount = product.precoOriginal && product.precoOriginal > product.preco;
             const discountPercent = hasDiscount ? 
                 Math.round(((product.precoOriginal - product.preco) / product.precoOriginal) * 100) : 0;
 
-            // Removido o envolucro extra (.quickview-modal-content) e o botão de fechar duplicado
             quickViewElements.content.innerHTML = `
                 <div class="quickview-gallery">
                     <img src="${getImageUrl(product.images[0])}" 
@@ -494,7 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
             quickViewSystem.addModalEventListeners();
         },
 
-        // Funções de evento... (usando as novas classes)
         addGalleryEventListeners: () => {
             const thumbnails = document.querySelectorAll('.quickview-thumbnail');
             const mainImage = document.getElementById('quickViewMainImage');
@@ -557,7 +514,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 quickViewSystem.closeQuickView();
                 showNotification(`${quickViewProduct.nome} (Tamanho: ${selectedSize}) adicionado!`);
             } else {
-                console.error("Função window.addToCart não encontrada. Verifique se CartModule está inicializado.");
+                console.error("Função window.addToCart não encontrada.");
                 quickViewSystem.closeQuickView();
                 showNotification('Erro interno ao adicionar ao carrinho.', 'error');
             }
@@ -576,26 +533,22 @@ document.addEventListener("DOMContentLoaded", () => {
         closeQuickView: () => {
             if (quickViewElements.overlay) {
                 quickViewElements.overlay.classList.remove('active');
-                // Remove a classe overlay do CSS do catalogo
                 quickViewElements.overlay.classList.remove('quickview-modal-overlay'); 
             }
             
-            // Tenta limpar o conteúdo para remover qualquer artefato visual
             setTimeout(() => {
                 if (quickViewElements.content) {
                     quickViewElements.content.innerHTML = ''; 
                 }
-            }, 300); // Espera a transição de fechamento do modal
+            }, 300);
 
             quickViewProduct = null;
             selectedSize = null;
-            // GARANTE que o scroll da página seja reativado
             document.body.style.overflow = ''; 
         },
 
         showError: (message) => {
             if (!quickViewElements.content) return;
-            // Usando a classe .quickview-error
             quickViewElements.content.innerHTML = `
                 <div class="quickview-error">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -613,17 +566,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Função de inicialização do Módulo QuickView
     const init = () => {
-        // Listener para o botão de fechar (X) do DOM estático
         if (quickViewElements.closeBtn) { 
             quickViewElements.closeBtn.addEventListener('click', quickViewSystem.closeQuickView);
         }
         
-        // Listener para fechar clicando no overlay
         if (quickViewElements.overlay) {
             quickViewElements.overlay.addEventListener('click', (e) => {
-                // Checa se o clique foi *diretamente* no overlay (e não no modal-content)
                 const isOverlayClick = e.target.classList.contains('quickview-modal-overlay') || e.target === quickViewElements.overlay;
                 if (isOverlayClick) {
                     quickViewSystem.closeQuickView();
@@ -631,14 +580,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
         
-        // Fecha com a tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && quickViewElements.overlay?.classList.contains('active')) {
                 quickViewSystem.closeQuickView();
             }
         });
 
-        // Expõe globalmente as funções
         window.quickViewApp = {
             openQuickView: quickViewSystem.openQuickView,
             showNotification: showNotification
@@ -649,27 +596,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   })();
 
-
-  /**
-   * Módulo Principal da Aplicação
-   */
   const AppModule = (() => {
     function init() {
       LoadingModule.init();
       HeaderModule.init();
-      // Animações GSAP iniciadas APÓS a página carregar
       window.addEventListener("load", AnimationModule.init); 
-      CartModule.init(); // Inicia o módulo do Carrinho
-      QuickViewModule.init(); // Inicia o módulo do Quick View
+      CartModule.init(); 
+      QuickViewModule.init(); 
 
-      // Atualiza o ano no rodapé
       const yearEl = document.getElementById("currentYear");
       if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
-    // Retorna a função de inicialização principal
     return { init };
   })();
 
-  // Inicia a aplicação chamando a inicialização do AppModule
   AppModule.init();
 });

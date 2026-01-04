@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userData = token ? parseJwt(token) : null;
   const isLoggedIn = userData !== null;
   
-  // === CORREÇÃO APLICADA AQUI ===
-  // Agora usamos caminhos absolutos a partir da raiz do site.
-  // Isso garante que os links funcionem em qualquer página.
+  // Caminhos absolutos para garantir navegação correta
   const homeUrl = "/index.html";
   const catalogoUrl = "/FRONT/catalogo/HTML/catalogo.html";
   const contatoUrl = "/FRONT/contato/HTML/contato.html";
@@ -30,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginUrl = "/FRONT/login/HTML/login.html";
   const pedidosUrl = "/FRONT/perfil/HTML/pedidos.html";
 
+  // ALTERADO: Nome da loja genérico na classe 'logo'
   headerElement.innerHTML = `
         <div class="container">
             <button class="mobile-nav-toggle" aria-controls="main-nav" aria-expanded="false">
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="hamburger-icon"></div>
             </button>
             
-            <a href="${homeUrl}" class="logo">Japa<span> Universe</span></a>
+            <a href="${homeUrl}" class="logo">Minha<span> Loja</span></a>
             
             <nav class="desktop-nav" id="desktop-nav-menu">
                 <ul class="nav-list">

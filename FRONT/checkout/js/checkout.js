@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Authorization': `Bearer ${token}` }
     });
 
-    const getCart = () => JSON.parse(localStorage.getItem('japaUniverseCart')) || [];
+    // ALTERADO: Chave genérica para ler o carrinho
+    const getCart = () => JSON.parse(localStorage.getItem('myStoreCart')) || [];
     
     const PRAZO = {
         PRIORITARIA: { BR: '10-15 dias', CASA: '18-23 dias' },
@@ -296,7 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const res = await apiClient.post('/pedidos', checkoutData);
             
-            localStorage.removeItem('japaUniverseCart');
+            // ALTERADO: Remove a chave genérica do carrinho
+            localStorage.removeItem('myStoreCart');
             if(window.updateCartCounter) window.updateCartCounter();
 
             sessionStorage.setItem('ultimoPedidoId', res.data.id);
