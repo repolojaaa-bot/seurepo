@@ -18,16 +18,20 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Verifica se o usuário admin já existe no banco de dados
-        if (usuarioRepository.findByEmail("admin@japaunder.com").isEmpty()) {
+        // Verifica se o usuário admin já existe no banco de dados (Alterado para email genérico)
+        if (usuarioRepository.findByEmail("admin@admin.com").isEmpty()) {
 
-            // Se não existir, cria um novo usuário admin
+            // Se não existir, cria um novo usuário admin genérico
             Usuario admin = new Usuario();
-            admin.setNome("Admin Japa");
-            admin.setEmail("admin@japaunder.com");
+            admin.setNome("Administrador"); // Trocado de 'Admin Japa'
+            admin.setEmail("admin@admin.com"); // Trocado de 'admin@japaunder.com'
             // Codifica a senha antes de salvar
-            admin.setSenha(passwordEncoder.encode("admin123"));
+            admin.setSenha(passwordEncoder.encode("123456")); // Senha padrão documentada
             admin.setRole("ROLE_ADMIN");
+
+            // Cria dados dummy para evitar erro de NullPointer se o cadastro exigir
+            admin.setCpf("000.000.000-00");
+            admin.setTelefone("00000000000");
 
             usuarioRepository.save(admin);
             System.out.println(">>> Usuário ADMIN criado com sucesso!");
