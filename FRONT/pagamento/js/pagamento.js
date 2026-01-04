@@ -11,11 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const pendingBox = document.getElementById('payment-pending');
     const successBox = document.getElementById('payment-success');
 
-    // Configuração de URL
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const BASE_URL = isLocal 
-        ? 'http://localhost:8080/api'
-        : 'https://back-production-e565.up.railway.app/api';
+    // URL FIXA PARA LOCALHOST (VERSÃO DE VENDA)
+    const BASE_URL = 'http://localhost:8080/api';
 
     // Verificações de Segurança
     if (!token) {

@@ -43,7 +43,8 @@ public class PixPayloadService {
             // 2. Prepara os dados do Pagador (Cliente)
             String emailCliente = (pedido.getUsuario() != null && pedido.getUsuario().getEmail() != null) 
                                   ? pedido.getUsuario().getEmail() 
-                                  : "cliente@japauniverse.com";
+                                  // ALTERADO: E-mail genérico
+                                  : "cliente@loja.com";
 
             PaymentPayerRequest payer = PaymentPayerRequest.builder()
                     .email(emailCliente)
@@ -53,9 +54,10 @@ public class PixPayloadService {
             // 3. Cria a requisição de Pagamento (COM O WEBHOOK AGORA)
             PaymentCreateRequest paymentCreateRequest = PaymentCreateRequest.builder()
                     .transactionAmount(pedido.getValorTotal())
-                    .description("Pedido #" + pedido.getId() + " - Japa Universe")
+                    // ALTERADO: Nome genérico na fatura
+                    .description("Pedido #" + pedido.getId() + " - Minha Loja")
                     .paymentMethodId("pix")
-                    .notificationUrl(webhookUrl) // <--- ESSA LINHA É A MÁGICA QUE FALTAVA
+                    .notificationUrl(webhookUrl) 
                     .payer(payer)
                     .build();
 
