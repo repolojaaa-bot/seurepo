@@ -1,5 +1,5 @@
 /* ===================================================================
-    ESTILOS DO PAINEL ADMINISTRATIVO (TEMA ROXO)
+    ESTILOS DO PAINEL ADMINISTRATIVO (TEMA ROXO & PRETO)
    =================================================================== */
 
 /* Importa variáveis globais da loja principal para consistência */
@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
 }
 
-/* --- Sidebar --- */
+/* --- Sidebar (Barra Lateral) --- */
 .sidebar {
     background-color: var(--surface);
     border-right: 1px solid var(--border-color);
@@ -29,14 +29,17 @@ body {
     top: 0;
     height: 100vh;
     overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
 }
 
 .logo {
     font-family: var(--font-display);
     font-size: 2.2rem;
-    color: var(--primary);
+    color: var(--primary); /* Roxo */
     text-align: center;
     margin-bottom: var(--space-xl);
+    text-shadow: 0 0 15px rgba(157, 78, 221, 0.4); /* Brilho Roxo */
 }
 
 .logo span {
@@ -58,23 +61,25 @@ body {
     margin-bottom: var(--space-sm);
     transition: all var(--transition-fast);
     text-decoration: none;
+    border-left: 3px solid transparent; /* Preparado para o estado ativo */
 }
 
 .nav-item i {
     font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
 }
 
 .nav-item:hover {
-    /* Hover sutil no menu */
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--text-primary);
 }
 
+/* Item Ativo - Agora Roxo */
 .nav-item.active {
-    /* Item ativo Roxo */
-    background-color: var(--primary);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+    background: linear-gradient(90deg, rgba(157, 78, 221, 0.15), transparent);
+    color: var(--primary);
+    border-left-color: var(--primary);
 }
 
 .sidebar-footer {
@@ -117,9 +122,10 @@ body {
     font-size: 2.5rem;
     font-family: var(--font-display);
     color: var(--text-primary);
+    letter-spacing: 1px;
 }
 
-/* --- Dashboard --- */
+/* --- Cards de Dashboard --- */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -129,23 +135,25 @@ body {
 .dashboard-card {
     background-color: var(--surface);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: var(--space-lg);
     display: flex;
     align-items: center;
     gap: var(--space-lg);
-    transition: transform var(--transition-fast);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .dashboard-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .dashboard-card .card-icon {
     font-size: 2.5rem;
     color: var(--primary);
-    background: rgba(157, 78, 221, 0.1);
+    /* Fundo do ícone: Roxo transparente */
+    background: rgba(157, 78, 221, 0.1); 
     padding: 15px;
     border-radius: 12px;
     display: flex;
@@ -159,6 +167,7 @@ body {
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .dashboard-card .card-content h3 {
@@ -168,6 +177,7 @@ body {
     color: var(--text-primary);
 }
 
+/* --- Gráficos --- */
 .charts-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -178,8 +188,9 @@ body {
 .chart-card {
     background-color: var(--surface);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: var(--space-lg);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .chart-card h3 {
@@ -187,6 +198,7 @@ body {
     margin-top: 0;
     margin-bottom: var(--space-lg);
     color: var(--text-primary);
+    font-size: 1.5rem;
 }
 
 /* --- Tabelas --- */
@@ -201,7 +213,7 @@ body {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
+    min-width: 800px; /* Garante scroll horizontal em telas menores */
 }
 
 .data-table th, .data-table td {
@@ -241,7 +253,7 @@ body {
     border-radius: 4px;
 }
 
-/* Ações na Tabela */
+/* Ações na Tabela (Select de Status) */
 .status-select {
     background-color: var(--background);
     border: 1px solid var(--border-color);
@@ -249,6 +261,7 @@ body {
     padding: 0.5rem;
     border-radius: 4px;
     cursor: pointer;
+    font-family: var(--font-body);
 }
 
 .status-select:focus {
@@ -257,7 +270,7 @@ body {
 }
 
 /* ===================================================
-    BOTÕES DE AÇÃO
+    BOTÕES DE AÇÃO (Ajustados para o Tema)
    =================================================== */
 
 .btn-sm {
@@ -270,22 +283,23 @@ body {
     line-height: 1; 
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     cursor: pointer;
+    font-weight: 500;
 }
 
-/* Botão Editar (Warning/Amarelo) */
+/* Botão Editar/Visualizar (Amarelo - Warning) */
 .btn-warning {
     background-color: var(--warning-color); 
-    color: #121212; 
+    color: #121212; /* Texto escuro para contraste no amarelo */
 }
 
 .btn-warning:hover {
     filter: brightness(1.1);
-    box-shadow: 0 2px 5px rgba(255, 193, 7, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
 
-/* Botão Excluir (Danger/Vermelho) */
+/* Botão Excluir (Vermelho - Danger) */
 .btn-danger {
     background-color: var(--error-color);
     color: white;
@@ -293,9 +307,10 @@ body {
 
 .btn-danger:hover {
     filter: brightness(1.1);
-    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
 }
 
+/* Botão Info/Detalhes (Azul - Info) */
 .btn-info {
     background-color: var(--info-color);
     color: white;
@@ -303,6 +318,18 @@ body {
 
 .btn-info:hover {
     filter: brightness(1.1);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+/* Botão Primário Genérico (Roxo) */
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
 }
 
 /* Ícones dentro dos botões */
@@ -310,15 +337,17 @@ body {
     font-size: 1rem;
 }
 
-/* --- ESTILOS GENÉRICOS DE MODAL --- */
+/* ===================================================
+    ESTILOS DE MODAL (OVERLAY E JANELA)
+   =================================================== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -337,16 +366,18 @@ body {
 .modal-content {
     background-color: var(--surface);
     padding: var(--space-lg);
-    border-radius: 8px;
+    border-radius: 12px;
     width: 100%;
     max-width: 800px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     z-index: 2001;
     max-height: 90vh;
     overflow-y: auto;
     transform: scale(0.95);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-overlay.active .modal-content {
@@ -361,12 +392,14 @@ body {
     margin-bottom: var(--space-lg);
     border-bottom: 1px solid var(--border-color);
 }
+
 .modal-header h3 {
     font-size: 1.8rem;
     font-family: var(--font-display);
     color: var(--text-primary);
     margin: 0;
 }
+
 .close-modal {
     background: none;
     border: none;
@@ -375,8 +408,9 @@ body {
     cursor: pointer;
     transition: color var(--transition-fast);
 }
+
 .close-modal:hover {
-    color: var(--primary);
+    color: var(--primary); /* Hover do X agora é roxo */
 }
 
 .modal-footer {
@@ -386,26 +420,32 @@ body {
     text-align: right;
 }
 
-/* --- FORMULÁRIOS NO MODAL --- */
+/* ===================================================
+    FORMULÁRIOS (DENTRO E FORA DO MODAL)
+   =================================================== */
 #product-form .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-md) var(--space-lg);
 }
+
 #product-form .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: var(--space-md);
 }
+
 #product-form .form-group.full-width {
     grid-column: 1 / -1;
 }
+
 #product-form .form-group label {
     margin-bottom: 0.5rem;
     font-weight: 500;
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
+
 #product-form .form-group input, 
 #product-form .form-group textarea,
 #product-form .form-group select {
@@ -419,21 +459,23 @@ body {
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/* FOCO DO INPUT AGORA ROXO */
+/* FOCO DOS INPUTS - AGORA COM GLOW ROXO */
 #product-form .form-group input:focus,
 #product-form .form-group textarea:focus,
 #product-form .form-group select:focus {
     border-color: var(--primary);
     outline: none;
-    /* Sombra Roxa RGB: 157, 78, 221 */
-    box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.2);
+    /* Sombra Roxa (RGB: 157, 78, 221) */
+    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.2);
 }
 
+/* Input File Customizado */
 #product-form .form-group input[type="file"] {
     padding: 0;
     border: none;
     background: transparent;
 }
+
 #product-form .form-group input[type="file"]::file-selector-button {
     background-color: var(--surface);
     color: var(--text-primary);
@@ -446,11 +488,13 @@ body {
     font-family: var(--font-body);
     font-size: 0.9rem;
 }
+
 #product-form .form-group input[type="file"]::file-selector-button:hover {
     border-color: var(--primary);
     color: var(--primary);
 }
 
+/* Pré-visualização de Imagem */
 .image-preview-container {
     display: flex;
     align-items: center;
@@ -459,6 +503,7 @@ body {
     padding-top: 1rem;
     border-top: 1px dashed var(--border-color);
 }
+
 #image-preview {
     width: 100px;
     height: 100px;
@@ -468,15 +513,19 @@ body {
     background-color: var(--background);
     padding: 5px;
 }
+
 #image-preview.hidden {
     display: none;
 }
+
 .image-preview-text {
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
 
-/* --- MODAL DE AVISO (ROXO) --- */
+/* ===================================================
+    MODAL DE AVISO / MENSAGEM
+   =================================================== */
 #aviso-form .form-group {
     margin-bottom: var(--space-lg);
 }
@@ -498,15 +547,16 @@ body {
     color: var(--text-primary);
     width: 100%;
     border-radius: 4px;
+    resize: vertical;
 }
 
 #aviso-form .form-group textarea:focus {
     border-color: var(--primary);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.2);
+    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.2);
 }
 
-/* Input File Customizado */
+/* Input File no Aviso */
 #aviso-form input[type="file"] {
     display: none;
 }
@@ -561,7 +611,9 @@ body {
     font-style: italic;
 }
 
-/* --- MODAL DETALHES PEDIDO --- */
+/* ===================================================
+    MODAL DETALHES DO PEDIDO
+   =================================================== */
 #details-modal .order-details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -636,7 +688,9 @@ body {
     text-align: right;
 }
 
-/* --- ESTILOS RESPONSIVOS --- */
+/* ===================================================
+    RESPONSIVIDADE (MOBILE)
+   =================================================== */
 .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -675,6 +729,7 @@ body {
         transition: transform 0.3s ease-in-out;
         z-index: 1002;
         border-right: 1px solid var(--border-color);
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }
     
     .sidebar.active {
@@ -703,7 +758,7 @@ body {
 
     .main-content {
         padding: var(--space-md);
-        padding-top: 80px;
+        padding-top: 80px; /* Espaço para o botão toggle */
     }
 
     .section-header {
@@ -724,6 +779,7 @@ body {
         padding: 0.8rem;
     }
 
+    /* Ajuste para grids de formulário em mobile */
     #product-form .form-grid {
         grid-template-columns: 1fr;
     }

@@ -33,6 +33,29 @@
                 <div class="section-header">
                     <h2>Gerenciar Pedidos</h2>
                 </div>
+                
+                <div class="status-tabs-container">
+                    <div class="status-tabs">
+                        <button class="tab-btn active" data-status="ALL">
+                            <i class="fas fa-list"></i> Todos
+                        </button>
+                        <button class="tab-btn" data-status="PENDENTE">
+                            <i class="fas fa-clock"></i> Pendentes
+                        </button>
+                        <button class="tab-btn" data-status="PAGO">
+                            <i class="fas fa-check-circle"></i> Pagos
+                        </button>
+                        <button class="tab-btn" data-status="ENVIADO">
+                            <i class="fas fa-truck"></i> Enviados
+                        </button>
+                        <button class="tab-btn" data-status="ENTREGUE">
+                            <i class="fas fa-box-open"></i> Entregues
+                        </button>
+                        <button class="tab-btn" data-status="CANCELADO">
+                            <i class="fas fa-times-circle"></i> Cancelados
+                        </button>
+                    </div>
+                </div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -129,6 +152,7 @@
             </form>
         </div>
     </div>
+
     <div id="product-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -223,10 +247,7 @@
             </form>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/admin.js"></script>
-
+    
     <div id="details-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -236,5 +257,8 @@
             <div id="details-modal-body" class="modal-body-view"></div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>

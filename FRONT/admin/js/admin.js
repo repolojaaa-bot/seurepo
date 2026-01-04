@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('jwtToken');
     let userRole = '';
-
-    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
-    const apiUrl = 'http://localhost:8080';
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8080'
+    : 'https://back-production-e565.up.railway.app';
 
     // Função para decodificar o token JWT
     const parseJwt = (token) => {
@@ -103,7 +103,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     const trackingPedidoIdInput = document.getElementById('tracking-pedido-id');
     const codigoRastreioInput = document.getElementById('codigo-rastreio');
     const trackingNewStatusInput = document.getElementById('tracking-new-status');
+
+    // --- VARIÁVEIS PARA FILTRO DE PEDIDOS (NOVO) ---
+    let allPedidos = []; // Armazena todos os pedidos
+    let currentStatusFilter = 'ALL'; // Filtro inicial
+    const tabButtons = document.querySelectorAll('.tab-btn');
     // --- FIM REFERÊNCIAS DO DOM ---
+    
+    // --- LÓGICA DAS ABAS DE STATUS (NOVO) ---
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active de todos
+            tabButtons.forEach(b => b.classList.remove('active'));
+            // Adiciona no clicado
+            btn.classList.add('active');
+            // Atualiza filtro e renderiza
+            currentStatusFilter = btn.dataset.status;
+            filterAndRenderPedidos();
+        });
+    });
+
+    // Função que filtra e chama o render (NOVO)
+    function filterAndRenderPedidos() {
+        let filteredPedidos = allPedidos;
+
+        if (currentStatusFilter !== 'ALL') {
+            filteredPedidos = allPedidos.filter(pedido => pedido.status === currentStatusFilter);
+        }
+
+        renderPedidos(filteredPedidos);
+    }
     
     // --- FUNÇÕES DE FECHAMENTO/ABERTURA DE MODAL ---
     
@@ -216,7 +245,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // RENDERIZAÇÃO DE PEDIDOS
     function renderPedidos(pedidos) {
+        // Ordena por data (mais recente primeiro) dentro da aba selecionada
         pedidos.sort((a, b) => new Date(b.dataPedido) - new Date(a.dataPedido));
+        
+        if (pedidos.length === 0) {
+            pedidosTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">Nenhum pedido encontrado nesta categoria.</td></tr>';
+            return;
+        }
+
         pedidosTableBody.innerHTML = pedidos.map(pedido => {
             const nomeCliente = pedido.nomeCliente || 'Usuário Desconhecido';
             const valorFormatado = pedido.valorTotal ? `R$ ${pedido.valorTotal.toFixed(2).replace('.', ',')}` : 'R$ --,--';
@@ -256,18 +292,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (confirm(`Tem certeza que deseja atualizar o status do pedido #${pedidoId} para ${novoStatus}?`)) {
                         updateStatus(pedidoId, novoStatus);
                     } else {
-                        fetchPedidos();
+                        fetchPedidos(); // Recarrega para desfazer a seleção visual se cancelar
                     }
                 }
             });
         });
     }
     
-    // FUNÇÃO PARA BUSCAR PEDIDOS (POULA A TELA)
+    // FUNÇÃO PARA BUSCAR PEDIDOS (ATUALIZADA)
     async function fetchPedidos() {
         try {
             const response = await apiClient.get('/pedidos'); 
-            renderPedidos(response.data);
+            allPedidos = response.data; // Salva na variável global
+            filterAndRenderPedidos(); // Aplica o filtro atual
         } catch (error) {
             console.error("Erro ao buscar pedidos:", error);
             pedidosTableBody.innerHTML = '<tr><td colspan="6">Não foi possível carregar os pedidos. Verifique a API ou sua conexão.</td></tr>';
