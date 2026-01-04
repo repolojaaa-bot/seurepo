@@ -1,5 +1,5 @@
 /* ===================================================
-    CSS/catalogo.css - CATÁLOGO PROFISSIONAL JAPA UNIVERSE (COMPACTADO)
+    CSS/catalogo.css - CATÁLOGO PROFISSIONAL (TEMA ROXO)
    =================================================== */
 
 /* ===== VARIÁVEIS ADICIONAIS ===== */
@@ -69,7 +69,8 @@
 .search-wrapper input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+    /* Sombra Roxa */
+    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.1);
 }
 
 .search-wrapper input::placeholder {
@@ -130,7 +131,8 @@
 .filter-select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.1);
+    /* Sombra Roxa */
+    box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.1);
 }
 
 .view-controls {
@@ -151,7 +153,8 @@
 .view-btn:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background: rgba(255, 122, 0, 0.1);
+    /* Fundo Roxo Claro */
+    background: rgba(157, 78, 221, 0.1);
 }
 
 .active-filters {
@@ -401,7 +404,8 @@
 
 .add-to-cart-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(255, 122, 0, 0.2);
+    /* Sombra Roxa */
+    box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);
 }
 
 .add-to-cart-btn:active { transform: translateY(0); }

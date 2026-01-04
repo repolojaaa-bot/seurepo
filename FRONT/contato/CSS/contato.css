@@ -1,15 +1,18 @@
 /* ===================================================
-    CSS/contato.css - Modal Compacto e Centralizado
+   CSS/contato.css - Modal Compacto e Centralizado (ROXO)
    =================================================== */
 
 :root {
-    --primary: #ff7a00;
-    --primary-hover: #e06b00;
-    --bg-dark: #121212;
-    --bg-card: #1e1e1e;
+    /* NOVA PALETA ROXA */
+    --primary: #9d4edd;        /* Roxo Vibrante Principal */
+    --primary-hover: #c77dff;  /* Roxo Claro para Hover */
+    
+    /* Mantidos do base.css */
+    --bg-dark: #0a0a0a;
+    --bg-card: #141414;
     --bg-input: #2a2a2a;
-    --text-main: #ffffff;
-    --text-muted: #a0a0a0;
+    --text-main: #eaeaea;
+    --text-muted: #b3b3b3;
     --border-color: #333333;
     --success: #00c853;
     --font-title: 'Bebas Neue', cursive;
@@ -34,7 +37,7 @@ body {
 
 /* --- Cabeçalho da Página --- */
 .page-header {
-    background-color: var(--surface);
+    background-color: var(--bg-card);
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     padding-top: calc(var(--header-height) + 2rem);
@@ -107,7 +110,8 @@ body {
     color: var(--primary);
     width: 40px;
     height: 40px;
-    background: rgba(255, 122, 0, 0.1);
+    /* Fundo Roxo Claro */
+    background: rgba(157, 78, 221, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,6 +159,8 @@ body {
     border-color: var(--primary);
     color: #fff;
     transform: translateY(-3px);
+    /* Sombra Roxa */
+    box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
 }
 
 /* --- Formulário --- */
@@ -197,7 +203,8 @@ body {
 .contact-form textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+    /* Sombra Roxa */
+    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.15);
 }
 
 .btn-full {
@@ -218,6 +225,8 @@ body {
 
 .btn-full:hover {
     background-color: var(--primary-hover);
+    /* Sombra Roxa */
+    box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
 }
 
 .btn-full:disabled {
@@ -322,6 +331,8 @@ body {
 
 .btn-modal-close:hover {
     background-color: var(--primary-hover);
+    /* Sombra Roxa */
+    box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
 }
 
 /* =========================================

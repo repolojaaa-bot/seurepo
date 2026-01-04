@@ -36,7 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="hamburger-icon"></div>
             </button>
             
-            <a href="${homeUrl}" class="logo">Minha<span> Loja</span></a>
+            <a href="${homeUrl}" class="logo-image-link">
+
+                <img src="/FRONT/assets/IMG/logo.PNG" alt="Logo da Loja" class="main-logo-img">
+            </a>
             
             <nav class="desktop-nav" id="desktop-nav-menu">
                 <ul class="nav-list">

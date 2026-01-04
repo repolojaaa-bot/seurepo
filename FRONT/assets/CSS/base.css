@@ -1,12 +1,14 @@
 /* ===================================================================
-    ARQUIVO DE ESTILO BASE - TN DO JAPA (MODIFICADO)
+    ARQUIVO DE ESTILO BASE - JAPA UNIVERSE (TEMA ROXO & PRETO)
    =================================================================== */
 
 /* ===== HYPE-TECH FUSION DESIGN SYSTEM ===== */
 :root {
-  /* Colors */
-  --primary: #ff7a00;
-  --primary-light: #ff8c21;
+  /* --- PALETA ROXA (Substituindo o Laranja) --- */
+  --primary: #9d4edd;       /* Roxo Vibrante Principal */
+  --primary-light: #c77dff; /* Roxo Claro / Lilás */
+  
+  /* --- NEUTROS --- */
   --background: #0a0a0a;
   --surface: #141414;
   --text-primary: #eaeaea;
@@ -25,9 +27,8 @@
   --space-lg: 2.5rem;
   --space-xl: 4rem;
   --space-xxl: 6rem;
-  
 
-  /* Shadows */
+  /* Shadows (Glow Roxo) */
   --shadow-glow: 0 0 40px -10px var(--primary);
 
   /* Transitions */
@@ -37,6 +38,12 @@
 
   /* Header Height */
   --header-height: 80px;
+  
+  /* Cores de Estado */
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
 }
 
 /* ===== BASE & RESET ===== */
@@ -67,7 +74,7 @@ body {
   position: relative;
 }
 
-/* --- ATUALIZAÇÃO DEFINITIVA PARA TRAVAR O SCROLL --- */
+/* --- TRAVAR SCROLL NO MENU MOBILE --- */
 html.nav-open {
     overflow: hidden;
 }
@@ -75,13 +82,9 @@ body.nav-open {
     position: fixed;
     overflow: hidden;
     width: 100%;
-    /* A propriedade 'top' será adicionada via JS */
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   font-family: var(--font-display);
   line-height: 1.1;
   letter-spacing: 1px;
@@ -110,10 +113,8 @@ button {
 }
 
 .container {
-  /* MUDANÇA 1: Aumenta a largura máxima para 1600px */
   max-width: 1600px;
   margin: 0 auto;
-  /* MUDANÇA 2: Aumenta o padding lateral no desktop (uso de var(--space-lg) ou um valor fixo como 2.5rem) */
   padding: 0 var(--space-lg); 
   width: 100%;
 }
@@ -213,21 +214,13 @@ button {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes pulse {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.05);
-  }
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
 
 /* ===== HEADER ===== */
@@ -255,7 +248,7 @@ button {
   align-items: center;
   height: 100%;
   width: 100%;
-  max-width: 1600px; /* Alinha com o container principal */
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--space-md);
 }
@@ -280,14 +273,12 @@ button {
         display: flex;
         align-items: center;
     }
-    /* MUDANÇA 3: Restaura o padding para o desktop */
     .container {
         padding: 0 var(--space-lg);
     }
 }
 
 @media (max-width: 768px) {
-    /* MODIFICAÇÃO CRÍTICA PARA RESPONSIVIDADE: REDUZ O PADDING DE 1.5rem PARA 1rem */
     .container {
         padding: 0 1rem;
     }
@@ -588,6 +579,7 @@ button {
   transform: translateY(30px);
 }
 
+/* ===== MAIN NAV (SIDEBAR) ===== */
 .main-nav {
   position: fixed;
   top: 0;
@@ -603,14 +595,16 @@ button {
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1099;
   box-shadow: 10px 0 50px rgba(0, 0, 0, 0.8);
-  border-right: 1px solid rgba(255, 122, 0, 0.2);
+  /* ROXO: Borda sutil */
+  border-right: 1px solid rgba(157, 78, 221, 0.2); 
 }
 
 .nav-header {
   padding: var(--space-lg);
   padding-top: calc(var(--header-height) + 1.5rem);
-  border-bottom: 1px solid rgba(255, 122, 0, 0.3);
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.1) 0%, transparent 100%);
+  /* ROXO: Fundo e borda */
+  border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+  background: linear-gradient(135deg, rgba(157, 78, 221, 0.1) 0%, transparent 100%);
   position: relative;
   backdrop-filter: blur(10px);
 }
@@ -635,7 +629,8 @@ button {
   text-transform: uppercase;
   letter-spacing: 4px;
   font-weight: 400;
-  text-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+  /* ROXO: Sombra de texto */
+  text-shadow: 0 0 20px rgba(157, 78, 221, 0.3);
 }
 
 .main-nav .nav-list {
@@ -679,9 +674,10 @@ button {
   left: -100%;
   width: 100%;
   height: 100%;
+  /* ROXO: Gradiente de hover */
   background: linear-gradient(90deg, 
     transparent, 
-    rgba(255, 122, 0, 0.15), 
+    rgba(157, 78, 221, 0.15), 
     transparent);
   transition: left 0.6s ease;
 }
@@ -696,23 +692,26 @@ button {
   text-align: center;
   color: var(--primary);
   transition: all 0.3s ease;
-  filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.3));
+  /* ROXO: Drop shadow do ícone */
+  filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.3));
 }
 
 .main-nav .nav-link:hover {
+  /* ROXO: Fundo e borda no hover */
   background: linear-gradient(135deg, 
-    rgba(255, 122, 0, 0.1) 0%, 
-    rgba(255, 122, 0, 0.05) 50%, 
+    rgba(157, 78, 221, 0.1) 0%, 
+    rgba(157, 78, 221, 0.05) 50%, 
     transparent 100%);
   color: var(--primary);
   transform: translateX(12px);
-  border: 1px solid rgba(255, 122, 0, 0.2);
-  box-shadow: 0 5px 20px rgba(255, 122, 0, 0.15);
+  border: 1px solid rgba(157, 78, 221, 0.2);
+  box-shadow: 0 5px 20px rgba(157, 78, 221, 0.15);
 }
 
 .main-nav .nav-link:hover i {
   transform: scale(1.3);
-  filter: drop-shadow(0 0 12px rgba(255, 122, 0, 0.5));
+  /* ROXO: Brilho intenso no hover */
+  filter: drop-shadow(0 0 12px rgba(157, 78, 221, 0.5));
 }
 
 .nav-separator {
@@ -749,15 +748,16 @@ button {
 
 .nav-item-account .nav-link:hover {
   color: var(--primary);
+  /* ROXO: Fundo sutil */
   background: linear-gradient(135deg, 
-    rgba(255, 122, 0, 0.12) 0%, 
-    rgba(255, 122, 0, 0.06) 100%);
-  border: 1px solid rgba(255, 122, 0, 0.3);
+    rgba(157, 78, 221, 0.12) 0%, 
+    rgba(157, 78, 221, 0.06) 100%);
+  border: 1px solid rgba(157, 78, 221, 0.3);
 }
 
 .nav-item-account .nav-link:hover i {
   color: var(--primary);
-  filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.4));
+  filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.4));
 }
 
 .nav-link-logout {
@@ -770,7 +770,7 @@ button {
   padding: 1.1rem 1.2rem;
   border-radius: 12px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #ff6b6b;
+  color: #ff6b6b; /* MANTIDO VERMELHO (Logout/Danger) */
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -831,8 +831,9 @@ button {
   font-size: 1.15rem;
   font-weight: 600;
   border: 2px solid var(--primary);
+  /* ROXO: Fundo gradiente sutil */
   background: linear-gradient(135deg, 
-    rgba(255, 122, 0, 0.1) 0%, 
+    rgba(157, 78, 221, 0.1) 0%, 
     transparent 100%);
   color: var(--primary);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -850,9 +851,10 @@ button {
   left: -100%;
   width: 100%;
   height: 100%;
+  /* ROXO: Brilho passando */
   background: linear-gradient(90deg, 
     transparent, 
-    rgba(255, 122, 0, 0.3), 
+    rgba(157, 78, 221, 0.3), 
     transparent);
   transition: left 0.7s ease;
 }
@@ -863,7 +865,8 @@ button {
     var(--primary-light) 100%);
   color: #fff;
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.4);
+  /* ROXO: Sombra forte */
+  box-shadow: 0 10px 30px rgba(157, 78, 221, 0.4);
   border-color: transparent;
 }
 
@@ -896,7 +899,8 @@ body.nav-open::before {
 }
 
 .main-nav .nav-list::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--primary-light) 0%, #ff9d45 100%);
+  /* ROXO: Hover da barra de rolagem */
+  background: linear-gradient(135deg, var(--primary-light) 0%, #e0aaff 100%);
 }
 
 .mobile-nav-toggle {
@@ -914,8 +918,9 @@ body.nav-open::before {
 }
 
 .mobile-nav-toggle:hover {
-  background: rgba(255, 122, 0, 0.1);
-  border-color: rgba(255, 122, 0, 0.3);
+  /* ROXO: Hover do botão mobile */
+  background: rgba(157, 78, 221, 0.1);
+  border-color: rgba(157, 78, 221, 0.3);
   transform: scale(1.05);
 }
 
@@ -949,8 +954,9 @@ body.nav-open::before {
 }
 
 body.nav-open .mobile-nav-toggle {
-  background: rgba(255, 122, 0, 0.15);
-  border-color: rgba(255, 122, 0, 0.4);
+  /* ROXO: Estado ativo */
+  background: rgba(157, 78, 221, 0.15);
+  border-color: rgba(157, 78, 221, 0.4);
 }
 
 body.nav-open .hamburger-icon {
@@ -1159,7 +1165,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .account-dropdown {
-    /* MUDANÇA 1: Esconde o menu com opacidade e o torna não-clicável */
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
@@ -1178,7 +1183,6 @@ input[type=number]::-webkit-outer-spin-button {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* MUDANÇA 2: Mostra o menu quando o mouse está sobre QUALQUER parte do .user-account-menu */
 .user-account-menu:hover .account-dropdown {
     opacity: 1;
     visibility: visible;
@@ -1201,7 +1205,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .account-dropdown a:hover, .logout-button:hover {
     color: var(--primary);
-    background-color: rgba(255, 122, 0, 0.1);
+    /* ROXO: Hover no dropdown */
+    background-color: rgba(157, 78, 221, 0.1); 
 }
 
 /* ======================================================= */
@@ -1257,7 +1262,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
     background: linear-gradient(90deg, 
       transparent, 
-      rgba(255, 122, 0, 0.15), 
+      rgba(157, 78, 221, 0.15), 
       transparent);
     transition: left 0.6s ease;
   }
@@ -1272,23 +1277,23 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
     color: var(--primary);
     transition: all 0.3s ease;
-    filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.3));
+    filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.3));
   }
 
   .main-nav .nav-link:hover {
     background: linear-gradient(135deg, 
-      rgba(255, 122, 0, 0.1) 0%, 
-      rgba(255, 122, 0, 0.05) 50%, 
+      rgba(157, 78, 221, 0.1) 0%, 
+      rgba(157, 78, 221, 0.05) 50%, 
       transparent 100%);
     color: var(--primary);
     transform: translateX(12px);
-    border: 1px solid rgba(255, 122, 0, 0.2);
-    box-shadow: 0 5px 20px rgba(255, 122, 0, 0.15);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    box-shadow: 0 5px 20px rgba(157, 78, 221, 0.15);
   }
 
   .main-nav .nav-link:hover i {
     transform: scale(1.3);
-    filter: drop-shadow(0 0 12px rgba(255, 122, 0, 0.5));
+    filter: drop-shadow(0 0 12px rgba(157, 78, 221, 0.5));
   }
 
   .nav-link::after { display: none; }
@@ -1328,14 +1333,14 @@ input[type=number]::-webkit-outer-spin-button {
   .nav-item-account .nav-link:hover {
     color: var(--primary);
     background: linear-gradient(135deg, 
-      rgba(255, 122, 0, 0.12) 0%, 
-      rgba(255, 122, 0, 0.06) 100%);
-    border: 1px solid rgba(255, 122, 0, 0.3);
+      rgba(157, 78, 221, 0.12) 0%, 
+      rgba(157, 78, 221, 0.06) 100%);
+    border: 1px solid rgba(157, 78, 221, 0.3);
   }
 
   .nav-item-account .nav-link:hover i {
     color: var(--primary);
-    filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.4));
+    filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.4));
   }
 
   .nav-link-logout {
@@ -1410,7 +1415,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 600;
     border: 2px solid var(--primary);
     background: linear-gradient(135deg, 
-      rgba(255, 122, 0, 0.1) 0%, 
+      rgba(157, 78, 221, 0.1) 0%, 
       transparent 100%);
     color: var(--primary);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1430,7 +1435,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
     background: linear-gradient(90deg, 
       transparent, 
-      rgba(255, 122, 0, 0.3), 
+      rgba(157, 78, 221, 0.3), 
       transparent);
     transition: left 0.7s ease;
   }
@@ -1441,108 +1446,12 @@ input[type=number]::-webkit-outer-spin-button {
       var(--primary-light) 100%);
     color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255, 122, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(157, 78, 221, 0.4);
     border-color: transparent;
   }
 
   .nav-login-btn:hover::before {
     left: 100%;
-  }
-
-  body.nav-open::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(12px);
-    z-index: 998;
-    transition: all 0.4s ease-in-out;
-  }
-
-  .main-nav .nav-list::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .main-nav .nav-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 3px;
-  }
-
-  .main-nav .nav-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    border-radius: 3px;
-  }
-
-  .main-nav .nav-list::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--primary-light) 0%, #ff9d45 100%);
-  }
-
-  .mobile-nav-toggle {
-    display: block;
-    z-index: 1100;
-    border: none;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.7rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mobile-nav-toggle:hover {
-    background: rgba(255, 122, 0, 0.1);
-    border-color: rgba(255, 122, 0, 0.3);
-    transform: scale(1.05);
-  }
-
-  .hamburger-icon {
-    position: relative;
-    width: 24px;
-    height: 2px;
-    background-color: var(--text-primary);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 2px;
-  }
-
-  .hamburger-icon::before,
-  .hamburger-icon::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 24px;
-    height: 2px;
-    background-color: var(--text-primary);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 2px;
-  }
-
-  .hamburger-icon::before {
-    top: -8px;
-  }
-
-  .hamburger-icon::after {
-    top: 8px;
-  }
-
-  body.nav-open .mobile-nav-toggle {
-    background: rgba(255, 122, 0, 0.15);
-    border-color: rgba(255, 122, 0, 0.4);
-  }
-
-  body.nav-open .hamburger-icon {
-    background-color: transparent;
-  }
-
-  body.nav-open .hamburger-icon::before {
-    transform: rotate(45deg) translate(6px, 7px);
-    background-color: var(--primary);
-  }
-
-  body.nav-open .hamburger-icon::after {
-    transform: rotate(-45deg) translate(6px, -7px);
-    background-color: var(--primary);
   }
 
   .header-actions {
@@ -1711,5 +1620,46 @@ input[type=number]::-webkit-outer-spin-button {
     
     .notification.show {
         transform: translateY(0);
+    }
+}
+
+/* =========================================
+   AJUSTE DA LOGO EM IMAGEM NO HEADER
+========================================= */
+
+/* O link que envolve a imagem */
+.logo-image-link {
+    display: flex;
+    align-items: center;
+    height: 100%; 
+    z-index: 1001; 
+}
+
+/* A imagem da logo em si (CONFIGURAÇÃO PC MANTIDA) */
+.main-logo-img {
+    /* Altura e largura fixas para PC conforme você pediu */
+    max-height: 160px; 
+    width: 190px; 
+    
+    display: block;
+    /* Adicionei object-fit para garantir que a imagem nunca distorça */
+    object-fit: contain; 
+    
+    transition: transform 0.3s ease;
+}
+
+.main-logo-img:hover {
+    transform: scale(1.05);
+}
+
+/* Ajuste para Celulares (Responsivo) */
+@media (max-width: 768px) {
+    .main-logo-img {
+        /* 1. Reduz a altura para caber no header menor do celular */
+        max-height: 150px; 
+        
+        /* 2. IMPORTANTE: Reseta a largura para automático. 
+           Assim ela diminui proporcionalmente e não fica esticada. */
+        width: 115px; 
     }
 }

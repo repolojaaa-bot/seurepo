@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // URL FIXA PARA LOCALHOST (VERSÃO DE VENDA)
   const API_URL = 'http://localhost:8080/api/auth';
 
   const resetPasswordForm = document.getElementById("resetPasswordForm");
@@ -7,17 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmPasswordEl = document.getElementById("confirm-password");
   const resetMessage = document.getElementById("resetMessage");
 
-  // 1. Pegar o Token da URL
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
 
   if (!token) {
     resetMessage.textContent = "Token não encontrado. Link inválido.";
     resetMessage.className = "form-message error";
-    resetPasswordForm.querySelector("button").disabled = true;
+    if(resetPasswordForm) resetPasswordForm.querySelector("button").disabled = true;
   }
 
-  // 2. Lógica do Formulário de Reset
   if (resetPasswordForm) {
     resetPasswordForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -32,17 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!token) {
-        resetMessage.textContent = "Erro: Token de redefinição ausente.";
-        resetMessage.className = "form-message error";
-        return;
-      }
-
       try {
         resetMessage.textContent = "Salvando...";
         resetMessage.className = "form-message";
 
-        // 3. Enviar para o Back-end
         const response = await axios.post(
           `${API_URL}/reset-password?token=${token}`,
           { newPassword }
@@ -51,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         resetMessage.textContent = response.data.message;
         resetMessage.className = "form-message success";
 
-        // 4. Redirecionar para o login
         setTimeout(() => {
           window.location.href = "./login.html";
         }, 3000);
@@ -63,9 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
   // ===============================================
-  // LÓGICA DO CANVAS DE FUNDO (Copiada do login.js)
+  // PARTÍCULAS ROXAS
   // ===============================================
   const canvas = document.getElementById("background-canvas");
   if (canvas) {
@@ -93,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = "rgba(255, 122, 0, 0.5)";
+        ctx.fillStyle = "rgba(157, 78, 221, 0.5)"; // ROXO
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -117,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 100) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 122, 0, ${1 - distance / 100})`;
+            ctx.strokeStyle = `rgba(157, 78, 221, ${1 - distance / 100})`; // ROXO
             ctx.lineWidth = 0.2;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);

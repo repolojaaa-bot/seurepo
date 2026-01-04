@@ -42,7 +42,7 @@
 }
 
 .hero-bg-image {
-  background-image: url("../IMG/tiger.png");
+  background-image: url("../IMG/tnroxo.png");
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -472,7 +472,7 @@
   }
 
   .hero-bg-image {
-    background-image: url("../IMG/tiger.png");
+    background-image: url("../IMG/tnroxo.png");
     width: 100vw !important;
     height: 100%;
     background-size: cover;
