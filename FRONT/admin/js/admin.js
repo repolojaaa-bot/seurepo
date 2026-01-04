@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('jwtToken');
     let userRole = '';
-    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:8080'
-    : 'https://back-production-e565.up.railway.app';
+
+    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
+    const apiUrl = 'http://localhost:8080';
 
     // Função para decodificar o token JWT
     const parseJwt = (token) => {
@@ -736,4 +736,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetchBrandsAndCategories(); 
     // A chamada está aqui no final, mas a função switchView está definida acima, resolvendo o erro.
     switchView('pedidos'); 
-}); 
+});

@@ -29,15 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-   // --- ATUALIZE ESTA PARTE ---
-    
-    // Define se é Local ou Produção
-    const BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:8080/api'
-        : 'https://back-production-e565.up.railway.app/api';
+   // --- ATUALIZADO PARA LOCALHOST (VERSÃO DE VENDA) ---
+    const BASE_URL = 'http://localhost:8080/api';
 
     const apiClient = axios.create({
-        baseURL: BASE_URL, // Usa a variável inteligente
+        baseURL: BASE_URL, 
     });
 
     apiClient.interceptors.request.use(config => {

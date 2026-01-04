@@ -40,10 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedAddressId = null;
     let currentSubtotal = 0;
 
-    // Definição da URL da API
-    const BASE_URL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
-        ? 'http://localhost:8080/api'
-        : 'https://back-production-e565.up.railway.app/api';
+    // Definição da URL da API (VERSÃO LOCALHOST - VENDA)
+    const BASE_URL = 'http://localhost:8080/api';
 
     // Redireciona se não estiver logado
     if (!token) {
