@@ -18,9 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let orderIdToCancel = null; // Variável para guardar qual ID vamos deletar
 
-    const BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:8080'
-        : 'https://back-production-e565.up.railway.app';
+    // ALTERADO PARA LOCALHOST (VERSÃO DE VENDA)
+    const BASE_URL = 'http://localhost:8080';
 
     let currentOrders = [];
 
