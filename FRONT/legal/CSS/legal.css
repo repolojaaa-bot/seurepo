@@ -2,19 +2,23 @@
     =================================================
     FRONT/legal/CSS/legal.css
     Estilos para Termos de Uso e Política de Privacidade
+    (TEMA ROXO ATUALIZADO)
     =================================================
 */
 
-/* 1. Variáveis da Nova Paleta de Cores */
+/* 1. Variáveis da Nova Paleta de Cores (ROXO) */
 :root {
   --background: #0a0a0a;
   --surface: #141414;
-  --primary: #ff7a00;
+  
+  /* NOVA COR PRINCIPAL: ROXO */
+  --primary: #9d4edd; 
+  --hover: #c77dff;   /* Lilás para hover */
+  
   --text-primary: #eaeaea;
   --text-secondary: #a0a0a0;
   --success: #00c853;
   --border: #2a2a2a;
-  --hover: #ff8c2a;
 }
 
 /* 2. Estrutura e Container Principal */
@@ -64,7 +68,10 @@
   border-left: 5px solid var(--primary);
   padding-left: 15px;
   line-height: 1.2;
-  background: linear-gradient(90deg, rgba(255, 122, 0, 0.1) 0%, rgba(255, 122, 0, 0) 100%);
+  
+  /* Gradiente atualizado para tons de ROXO */
+  background: linear-gradient(90deg, rgba(157, 78, 221, 0.15) 0%, rgba(157, 78, 221, 0) 100%);
+  
   padding: 15px;
   border-radius: 0 8px 8px 0;
 }
@@ -97,7 +104,7 @@
   content: "\f00c";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  color: var(--success);
+  color: var(--success); /* Mantido verde para indicar sucesso/confirmação */
   position: absolute;
   left: 0;
   top: 0;
@@ -117,7 +124,7 @@
   margin-top: 50px;
   padding: 15px;
   text-align: center;
-  color: var(--text-primary);
+  color: #fff; /* Força texto branco no botão roxo */
   background-color: var(--primary);
   text-decoration: none;
   font-weight: 600;
@@ -129,7 +136,8 @@
 .legal-container .nav-link:hover {
   background-color: var(--hover);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3);
+  /* Sombra Roxa atualizada */
+  box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
 }
 
 .legal-container .nav-link i {
